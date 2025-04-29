@@ -92,9 +92,9 @@ exports.applyCoupon = async (req, res) => {
     discount = Math.min(discount, cartTotal); // Ensure no negative total
 
     // Update the coupon's usedBy array to include the userId
-    coupon.usedBy.push(userId);
-    await coupon.save();
-    
+    // coupon.usedBy.push(userId);
+    // await coupon.save();
+
     res.status(200).json({
       message: 'Coupon applied',
       discount,

@@ -247,3 +247,131 @@ exports.validateRemoveCartItem = () => {
     });
     return validate(schema);
 };
+
+exports.validateCreateCoupon = () => {
+    const schema = Joi.object({
+        code: Joi.string()
+            .trim()
+            .uppercase()
+            .required()
+            .messages({
+                'string.base': 'Code must be a string',
+                'string.empty': 'Coupon code is required',
+                'any.required': 'Coupon code is required',
+            }),
+
+        discountType: Joi.string()
+            .valid('flat', 'percent')
+            .required()
+            .messages({
+                'any.only': 'Discount type must be either "flat" or "percent"',
+                'any.required': 'Discount type is required',
+            }),
+
+        value: Joi.number()
+            .min(0)
+            .required()
+            .messages({
+                'number.base': 'Discount value must be a number',
+                'number.min': 'Discount value must be greater than or equal to 0',
+                'any.required': 'Discount value is required',
+            }),
+
+        minOrderValue: Joi.number()
+            .min(0)
+            .default(0)
+            .messages({
+                'number.base': 'Minimum order value must be a number',
+                'number.min': 'Minimum order value must be 0 or more',
+            }),
+
+        expiryDate: Joi.date()
+            .greater('now')
+            .required()
+            .messages({
+                'date.base': 'Expiry date must be a valid date',
+                'date.greater': 'Expiry date must be in the future',
+                'any.required': 'Expiry date is required',
+            }),
+
+        usageLimit: Joi.number()
+            .min(1)
+            .default(1)
+            .messages({
+                'number.base': 'Usage limit must be a number',
+                'number.min': 'Usage limit must be at least 1',
+            }),
+
+        isActive: Joi.boolean()
+            .default(true)
+    });
+
+    return validate(schema);
+};
+
+exports.validateApplyCoupon = () => {
+    const schema = Joi.object({
+        code: Joi.string()
+            .trim()
+            .uppercase()
+            .required()
+            .messages({
+                'string.base': 'Code must be a string',
+                'string.empty': 'Coupon code is required',
+                'any.required': 'Coupon code is required',
+            }),
+    });
+    return validate(schema);
+};
+
+exports.validateCreateOrder = () => {
+    const schema = Joi.object({
+        shippingAddress: Joi.object({
+            street: Joi.string()
+                .required()
+                .messages({
+                    'string.base': 'Street must be a string',
+                    'string.empty': 'Street is required',
+                    'any.required': 'Street is required',
+                }),
+            city: Joi.string()
+                .required()
+                .messages({
+                    'string.base': 'City must be a string',
+                    'string.empty': 'City is required',
+                    'any.required': 'City is required',
+                }),
+            state: Joi.string()
+                .required()
+                .messages({
+                    'string.base': 'State must be a string',
+                    'string.empty': 'State is required',
+                    'any.required': 'State is required',
+                }),
+            postalCode: Joi.string()
+                .required()
+                .messages({
+                    'string.base': 'Postal code must be a string',
+                    'string.empty': 'Postal code is required',
+                    'any.required': 'Postal code is required',
+                }),
+            country: Joi.string()
+                .required()
+                .messages({
+                    'string.base': 'Country must be a string',
+                    'string.empty': 'Country is required',
+                    'any.required': 'Country is required',
+                }),
+        }).required(),
+        paymentMethod: Joi.string()
+            .valid('COD', 'online')
+            .required()
+            .messages({
+                'any.only': 'Payment method must be either "COD" or "online"',
+                'any.required': 'Payment method is required',
+            }),
+    });
+
+    return validate(schema);
+};
+

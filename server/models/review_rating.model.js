@@ -30,9 +30,9 @@ const ReviewRatingSchema = new Schema(
     { timestamps: true }
 );
 
-productSchema.virtual('averageRating').get(function () {
-    return this.reviews.reduce((sum, review) => sum + review.rating, 0) / this.reviews.length;
-});  
+// productSchema.virtual('averageRating').get(function () {
+//     return this.reviews.reduce((sum, review) => sum + review.rating, 0) / this.reviews.length;
+// });  
 
 
 module.exports = model('ReviewRating', ReviewRatingSchema);
