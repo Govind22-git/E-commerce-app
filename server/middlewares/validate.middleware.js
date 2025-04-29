@@ -207,3 +207,43 @@ exports.validateProduct = () => {
 
     return validate(productSchema);
 };
+
+exports.validateAddToCart = () => {
+    const schema = Joi.object({
+        productId: Joi.string().required().messages({
+            'any.required': 'Product ID is required',
+            'string.empty': 'Product ID cannot be empty',
+        }),
+        quantity: Joi.number().integer().min(1).required().messages({
+            'number.base': 'Quantity must be a number',
+            'number.min': 'Quantity must be at least 1',
+            'any.required': 'Quantity is required',
+        }),
+    });
+    return validate(schema);
+};
+
+exports.validateUpdateCartItem = () => {
+    const schema = Joi.object({
+        productId: Joi.string().required().messages({
+            'any.required': 'Product ID is required',
+            'string.empty': 'Product ID cannot be empty',
+        }),
+        quantity: Joi.number().integer().min(1).required().messages({
+            'number.base': 'Quantity must be a number',
+            'number.min': 'Quantity must be at least 1',
+            'any.required': 'Quantity is required',
+        }),
+    });
+    return validate(schema);
+};
+
+exports.validateRemoveCartItem = () => {
+    const schema = Joi.object({
+        productId: Joi.string().required().messages({
+            'any.required': 'Product ID is required',
+            'string.empty': 'Product ID cannot be empty',
+        }),
+    });
+    return validate(schema);
+};

@@ -6,7 +6,7 @@ exports.isLoggedIn = async (req, res, next) => {
         
         if (token) {
             const decode = jwt.verify(token, process.env.JWT_SECRET);
-            if (decode?.id) {
+            if (decode?._id) {
                 req.user = decode;
                 next();
             } else {

@@ -24,6 +24,6 @@ router.patch('/product/status/:id', isLoggedIn, isAdmin, updateProductStatus);
 
 // User Routes
 router.get('/products', getAllProducts); // Paginated
-router.get('/product/:slug', getProductBySlug); // Get single by slug
+router.get('/product/slug/:slug', getProductBySlug); // Get single by slug
 
 module.exports = router;

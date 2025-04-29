@@ -37,7 +37,7 @@ userSchema.methods.isPasswordValid = async function (password) {
 userSchema.methods.generateJWTToken = function (expiresIn = "1d") {
     return jwt.sign(
         {
-            id: this._id,
+            _id: this._id,
             email: this.email,
             role: this.role,
         },
